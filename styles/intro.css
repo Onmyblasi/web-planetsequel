@@ -111,7 +111,7 @@ body { font-family: var(--sans); background: var(--black); }
   text-shadow: 0 2px 14px rgba(0,0,0,.9);
   white-space: pre-line;
   opacity: 0;
-  transition: opacity .6s ease;
+  transition: opacity .35s ease;
   z-index: 20;
 }
 .subtitle.on { opacity: 1; }

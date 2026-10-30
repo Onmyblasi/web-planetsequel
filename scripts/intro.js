@@ -9,26 +9,32 @@ const SCRIPT = {
     prompt: "PULSA PARA EMPEZAR",
     skip: "SALTAR",
     lines: [
-      { text: "…confirmado esta mañana por la Agencia Espacial Europea.", hold: 4200, cut: true },
-      { text: "El planeta está a cuarenta años luz. Tiene agua líquida\ny un campo magnético estable.", hold: 5400, cut: true },
-      { text: "No es habitable. Pero, según sus cálculos, podría llegar a serlo.", hold: 5000, cut: false },
-      { text: "…lo que ya todo el mundo llama el proyecto Sequel.", hold: 4400, cut: true },
-      { text: "Doce investigadores. Una generación entera de trabajo\nantes de ver el primer resultado.", hold: 5600, cut: false },
-      { text: "La misión despega mañana.", hold: 4000, cut: true },
-      { text: "", hold: 2600, cut: false, lightsOut: true }
+      { text: "Y ahora les traemos una noticia de última hora:", hold: 2400, cut: true },
+      { text: "la Agencia Espacial Europea acaba de comunicar\nque han hallado un planeta", hold: 3200, cut: true },
+      { text: "con unas características similares a las que tenía la Tierra\nhace 3.800 millones de años.", hold: 3800, cut: false },
+      { text: "La agencia planea ahora mandar\nun equipo de investigación", hold: 2600, cut: true },
+      { text: "para introducir progresivamente las especies\nque poblaron nuestro planeta", hold: 3200, cut: false },
+      { text: "y se encargaron de construir una atmósfera habitable\npara los seres humanos.", hold: 3200, cut: true },
+      { text: "La hipótesis plantea que, con el tiempo,", hold: 2000, cut: false },
+      { text: "podría llegar a ser como una secuela\nde nuestro planeta.", hold: 3000, cut: true },
+      { text: "Esperamos que nuestros investigadores lo consigan.", hold: 2800, cut: false },
+      { text: "", hold: 2200, cut: false, lightsOut: true }
     ]
   },
-  en: {
+    en: {
     prompt: "PRESS TO BEGIN",
     skip: "SKIP",
     lines: [
-      { text: "…confirmed this morning by the European Space Agency.", hold: 4200, cut: true },
-      { text: "The planet is forty light-years away. It has liquid water\nand a stable magnetic field.", hold: 5400, cut: true },
-      { text: "It isn't habitable. But by their calculations, it could become so.", hold: 5000, cut: false },
-      { text: "…what everyone is already calling the Sequel project.", hold: 4400, cut: true },
-      { text: "Twelve researchers. A whole generation of work\nbefore the first result.", hold: 5600, cut: false },
-      { text: "The mission launches tomorrow.", hold: 4000, cut: true },
-      { text: "", hold: 2600, cut: false, lightsOut: true }
+      { text: "We turn now to some breaking news:", hold: 2400, cut: true },
+      { text: "the European Space Agency has just announced\nthat a planet has been found", hold: 3200, cut: true },
+      { text: "with conditions similar to those on Earth\n3.8 billion years ago.", hold: 3800, cut: false },
+      { text: "The agency now plans to send\na research team", hold: 2600, cut: true },
+      { text: "to gradually introduce the species\nthat once populated our planet", hold: 3200, cut: false },
+      { text: "and built the atmosphere\nthat made it habitable for humans.", hold: 3200, cut: true },
+      { text: "The hypothesis is that, in time,", hold: 2000, cut: false },
+      { text: "it could become a sequel\nto our own planet.", hold: 3000, cut: true },
+      { text: "We hope our researchers make it.", hold: 2800, cut: false },
+      { text: "", hold: 2200, cut: false, lightsOut: true }
     ]
   }
 };
@@ -175,7 +181,7 @@ async function play() {
     subtitle.classList.add("on");
     await wait(line.hold);
     subtitle.classList.remove("on");
-    await wait(600);
+    await wait(400);
   }
 
   finish();

@@ -78,12 +78,19 @@ let lang = Language.current();
 
 /* ---------- sound ---------- */
 
+const SOUND_KEY = "sequel_sound";
+
 let staticGain = null;
-let playing = false;
+let playing    = false;
 let burstTimer = null;
+let primed     = false;   // has the first interaction happened?
 
 const soundBtn   = document.getElementById("soundBtn");
 const soundLabel = document.getElementById("soundLabel");
+
+function rememberSound(state) {
+  try { localStorage.setItem(SOUND_KEY, state); } catch (e) { /* private mode */ }
+}
 
 function soundOn() {
   if (!Audio.init()) return;
@@ -99,6 +106,9 @@ function soundOn() {
   staticGain.gain.linearRampToValueAtTime(.032, Audio.now + 2.2);
 
   playing = true;
+  primed  = true;
+  rememberSound("on");
+
   soundBtn.classList.add("active");
   soundBtn.setAttribute("aria-pressed", "true");
   soundLabel.textContent = TEXT[lang].soundOn;
@@ -106,10 +116,13 @@ function soundOn() {
 }
 
 function soundOff() {
-  if (!Audio.context) return;
-  Audio.fadeMaster(0, .12);
-  clearTimeout(burstTimer);
   playing = false;
+  primed  = true;
+  rememberSound("off");
+
+  if (Audio.context) Audio.fadeMaster(0, .12);
+  clearTimeout(burstTimer);
+
   soundBtn.classList.remove("active");
   soundBtn.setAttribute("aria-pressed", "false");
   soundLabel.textContent = TEXT[lang].soundOff;
@@ -149,6 +162,21 @@ function scheduleBurst(seconds) {
 }
 
 soundBtn.addEventListener("click", () => playing ? soundOff() : soundOn());
+
+/* Browsers won't play anything until the user acts, so the
+   ambience starts on their first click or keypress, whatever it
+   is. Anyone who turned it off before stays silent. */
+function primeSound() {
+  if (primed || playing) return;
+  primed = true;
+
+  let wanted = true;
+  try { wanted = localStorage.getItem(SOUND_KEY) !== "off"; } catch (e) { /* ignore */ }
+  if (wanted) soundOn();
+}
+
+document.addEventListener("click", primeSound);
+document.addEventListener("keydown", primeSound);
 
 /* ---------- language ---------- */
 
