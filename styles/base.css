@@ -1,0 +1,68 @@
+/* ============================================================
+   base.css · tokens, reset and shared utilities
+   ============================================================ */
+
+:root {
+  /* surfaces */
+  --space:         #04070c;
+  --black:         #04060a;
+  --panel:         #0d141b;
+  --border:        #1e2a33;
+  --border-strong: #33454f;
+
+  /* text */
+  --ice:   #dbe7ee;
+  --grey:  #8ea0ac;
+  --faint: #566671;
+  --dim:   #46535d;
+
+  /* accent */
+  --green: #7fb8a4;
+
+  /* type */
+  --mono: "IBM Plex Mono", monospace;
+  --sans: "Jost", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--space);
+  color: var(--ice);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow: hidden;
+}
+
+/* screen readers only */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* film grain, above everything else */
+.grain {
+  position: fixed;
+  inset: -140px;
+  z-index: 30;
+  pointer-events: none;
+  opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .grain { animation: grain-shift .55s steps(3) infinite; }
+}
+
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(-13px, 8px); }
+  66%      { transform: translate(10px, -6px); }
+}

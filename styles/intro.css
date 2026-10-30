@@ -1,0 +1,150 @@
+/* ============================================================
+   intro.css · opening sequence, seen by TV light
+   ============================================================ */
+
+body { font-family: var(--sans); background: var(--black); }
+
+/* ---------- 1 · start gate ---------- */
+
+.gate {
+  position: fixed; inset: 0; z-index: 90;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--black);
+  cursor: pointer;
+  transition: opacity 1.2s ease;
+}
+.gate.out { opacity: 0; pointer-events: none; }
+
+.gate-prompt {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: .3em;
+  color: var(--faint);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .gate-prompt { animation: breathe 3s ease-in-out infinite; }
+}
+@keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* ---------- 2 · the room ---------- */
+
+.room { position: fixed; inset: 0; overflow: hidden; }
+
+.wall {
+  position: absolute; inset: 0 0 26% 0;
+  background: linear-gradient(180deg, #080a0e 0%, #0b0e13 60%, #0d1116 100%);
+}
+
+.skirting {
+  position: absolute; left: 0; right: 0; bottom: 26%;
+  height: 10px;
+  background: #0e1217;
+}
+
+.floor {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 26%;
+  background: linear-gradient(180deg, #090c10 0%, #05070a 100%);
+}
+
+/* night window at the back */
+.window {
+  position: absolute;
+  right: 9%; top: 13%;
+  width: 19%; height: 34%;
+  background: linear-gradient(180deg, #0c1420 0%, #0a1018 100%);
+  border: 1px solid #141b24;
+}
+.window::before, .window::after {
+  content: ""; position: absolute; background: #141b24;
+}
+.window::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+.window::after  { top: 50%; left: 0; right: 0; height: 1px; }
+
+.city-glow {
+  position: absolute;
+  right: 9%; top: 13%;
+  width: 19%; height: 34%;
+  background:
+    radial-gradient(circle at 30% 80%, rgba(120,150,190,.10), transparent 55%),
+    radial-gradient(circle at 70% 90%, rgba(150,130,100,.07), transparent 50%);
+}
+
+/* couch silhouette, foreground */
+.couch {
+  position: absolute;
+  left: 50%; bottom: -8%;
+  width: 68%; height: 42%;
+  transform: translateX(-50%);
+  background: #04060a;
+  border-radius: 34px 34px 0 0;
+  box-shadow: 0 -1px 0 rgba(120,150,180,.06);
+}
+.cushion {
+  position: absolute;
+  left: 50%; bottom: -2%;
+  width: 30%; height: 16%;
+  transform: translateX(-50%);
+  background: #050810;
+  border-radius: 20px 20px 0 0;
+}
+
+/* the TV light: the only thing that moves */
+.tv-light {
+  position: absolute; inset: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ---------- 3 · subtitles ---------- */
+
+.subtitle {
+  position: fixed;
+  left: 50%; bottom: 13%;
+  transform: translateX(-50%);
+  width: min(680px, 86vw);
+  text-align: center;
+  font-size: clamp(17px, 2.4vw, 23px);
+  font-weight: 300;
+  line-height: 1.55;
+  color: #eef4f8;
+  text-shadow: 0 2px 14px rgba(0,0,0,.9);
+  white-space: pre-line;
+  opacity: 0;
+  transition: opacity .6s ease;
+  z-index: 20;
+}
+.subtitle.on { opacity: 1; }
+
+/* ---------- 4 · fade out ---------- */
+
+.fade {
+  position: fixed; inset: 0; z-index: 80;
+  background: var(--black);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2.6s ease;
+}
+.fade.on { opacity: 1; }
+
+/* ---------- skip ---------- */
+
+.skip {
+  position: fixed;
+  right: 24px; bottom: 20px;
+  z-index: 95;
+  background: none;
+  border: 1px solid transparent;
+  color: #34404a;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .18em;
+  padding: 7px 12px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .6s ease, color .15s, border-color .15s;
+}
+.skip.on { opacity: 1; }
+.skip:hover, .skip:focus-visible {
+  color: var(--ice); border-color: #28323b; outline: none;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEQUEL PLANET</title>
+<meta name="description" content="Aprende SQL reparando un mecha en un planeta sin atmósfera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/intro.css">
+</head>
+<body>
+
+<!-- provisional room · replace with the Blender render, lit
+     only by ambient light: the TV glow is the layer above -->
+<div class="room" aria-hidden="true">
+  <div class="wall"></div>
+  <div class="window"></div>
+  <div class="city-glow"></div>
+  <div class="skirting"></div>
+  <div class="floor"></div>
+  <div class="tv-light" id="tvLight"></div>
+  <div class="couch"></div>
+  <div class="cushion"></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<p class="subtitle" id="subtitle" role="status" aria-live="polite"></p>
+
+<div class="fade" id="fade"></div>
+
+<button class="skip" id="skipBtn">SALTAR</button>
+
+<section class="gate" id="gate">
+  <span class="gate-prompt" id="gatePrompt">PULSA PARA EMPEZAR</span>
+</section>
+
+<script src="scripts/audio.js"></script>
+<script src="scripts/language.js"></script>
+<script src="scripts/intro.js"></script>
+
+</body>
+</html>
