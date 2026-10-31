@@ -6,7 +6,7 @@
 
 const TEXT = {
   es: {
-    tagline:   "HACER CRECER ALGO DONDE NUNCA HA CRECIDO NADA",
+    tagline:   "APRENDE SQL Y HAZ CRECER VIDA",
     signIn:    "INICIAR SESIÓN",
     signUp:    "CREAR CUENTA",
     guest:     "Continuar sin iniciar sesión",
@@ -29,7 +29,7 @@ const TEXT = {
     status:    "MODO LOCAL"
   },
   en: {
-    tagline:   "GROW SOMETHING WHERE NOTHING EVER HAS",
+    tagline:   "LEARN SQL AND GROW LIFE",
     signIn:    "SIGN IN",
     signUp:    "CREATE ACCOUNT",
     guest:     "Continue without signing in",
