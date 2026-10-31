@@ -80,10 +80,8 @@ let lang = Language.current();
 
 const SOUND_KEY = "sequel_sound";
 
-let staticGain = null;
-let playing    = false;
-let burstTimer = null;
-let primed     = false;   // has the first interaction happened?
+let playing = false;
+let primed  = false;   // has the first interaction happened?
 
 const soundBtn   = document.getElementById("soundBtn");
 const soundLabel = document.getElementById("soundLabel");
@@ -94,17 +92,9 @@ function rememberSound(state) {
 
 function soundOn() {
   if (!Audio.init()) return;
-  Audio.resume();
 
-  if (!staticGain) {
-    staticGain = Audio.noise({ band: 900, q: .5, cutoff: 2400 });
-  }
-
-  Audio.fadeMaster(1, .1);
-  staticGain.gain.cancelScheduledValues(Audio.now);
-  staticGain.gain.setValueAtTime(staticGain.gain.value, Audio.now);
-  staticGain.gain.linearRampToValueAtTime(.032, Audio.now + 2.2);
-
+  /* El estado y el botón primero. Si el audio falla, la interfaz
+     sigue siendo coherente y el siguiente clic puede apagarlo. */
   playing = true;
   primed  = true;
   rememberSound("on");
@@ -112,7 +102,9 @@ function soundOn() {
   soundBtn.classList.add("active");
   soundBtn.setAttribute("aria-pressed", "true");
   soundLabel.textContent = TEXT[lang].soundOn;
-  scheduleBurst(5);
+
+  Audio.fadeMaster(1, .1);
+  try { Ambience.start(); } catch (e) { console.error(e); }
 }
 
 function soundOff() {
@@ -120,45 +112,12 @@ function soundOff() {
   primed  = true;
   rememberSound("off");
 
-  if (Audio.context) Audio.fadeMaster(0, .12);
-  clearTimeout(burstTimer);
-
   soundBtn.classList.remove("active");
   soundBtn.setAttribute("aria-pressed", "false");
   soundLabel.textContent = TEXT[lang].soundOff;
-}
 
-/* A distant transmission: the static swells and a few tones
-   come through, like a code you can't read. */
-function burst() {
-  if (!playing || !staticGain) return;
-
-  const t = Audio.now;
-  const length = .9 + Math.random() * 1.7;
-
-  staticGain.gain.cancelScheduledValues(t);
-  staticGain.gain.setValueAtTime(staticGain.gain.value, t);
-  staticGain.gain.linearRampToValueAtTime(.08, t + .28);
-  staticGain.gain.setValueAtTime(.08, t + length - .35);
-  staticGain.gain.linearRampToValueAtTime(.032, t + length);
-
-  const tones = 2 + Math.floor(Math.random() * 2);
-  let offset = .3;
-  for (let i = 0; i < tones; i++) {
-    Audio.beep({
-      freq: 400 + Math.random() * 880,
-      at: offset,
-      length: .06 + Math.random() * .13
-    });
-    offset += .17 + Math.random() * .24;
-  }
-
-  scheduleBurst(12 + Math.random() * 16);
-}
-
-function scheduleBurst(seconds) {
-  clearTimeout(burstTimer);
-  burstTimer = setTimeout(burst, seconds * 1000);
+  if (Audio.context) Audio.fadeMaster(0, .12);
+  try { Ambience.stop(); } catch (e) { console.error(e); }
 }
 
 soundBtn.addEventListener("click", () => playing ? soundOff() : soundOn());
